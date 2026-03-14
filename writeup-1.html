@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Primary SEO -->
+   <title>How I Built a Tuwaiq Hackathon Project Using 8 AI Tools | Abdulaziz Alodan (al0dan)</title>
+   <meta name="description" content="Abdulaziz Alodan (al0dan) explains how he used 8 AI tools — ChatGPT, Claude, Gemini, and more — to build a complete hackathon project from idea to testing.">
+   <meta name="author" content="Abdulaziz Alodan">
+   <link rel="canonical" href="https://al0dan.com/writeup-1.html">
+   <meta name="robots" content="index, follow">
+
+   <!-- Open Graph -->
+   <meta property="og:type" content="article">
+   <meta property="og:title" content="How I Built a Tuwaiq Hackathon Project Using 8 AI Tools | Abdulaziz Alodan">
+   <meta property="og:description" content="Abdulaziz Alodan explains how he used 8 AI tools to build a complete hackathon project — from idea to testing.">
+   <meta property="og:image" content="imgs/blog1.png">
+   <meta property="og:locale" content="ar_SA">
+   <meta property="og:locale:alternate" content="en_US">
+   <meta property="article:author" content="Abdulaziz Alodan">
+   <meta property="article:published_time" content="2026-03-13">
+
+   <!-- Twitter / X Card -->
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:site" content="@al0dan">
+   <meta name="twitter:creator" content="@al0dan">
+   <meta name="twitter:title" content="How I Built a Tuwaiq Hackathon Project Using 8 AI Tools">
+   <meta name="twitter:description" content="Abdulaziz Alodan explains how he used 8 AI tools to build a full hackathon project.">
+   <meta name="twitter:image" content="imgs/blog1.png">
+
+   <!-- Article Structured Data -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "BlogPosting",
+     "headline": "How I Built a Tuwaiq Hackathon Project Using 8 AI Tools",
+     "alternativeHeadline": "كيف بنيت مشروع هاكاثون طويق باستخدام 8 أدوات ذكاء اصطناعي",
+     "image": "https://al0dan.com/imgs/blog1.png",
+     "datePublished": "2026-03-13",
+     "inLanguage": ["ar", "en"],
+     "author": {
+       "@type": "Person",
+       "name": "Abdulaziz Alodan",
+       "alternateName": ["عبدالعزيز العودان", "al0dan"],
+       "url": "https://al0dan.com"
+     },
+     "publisher": {
+       "@type": "Person",
+       "name": "Abdulaziz Alodan",
+       "url": "https://al0dan.com"
+     },
+     "description": "Abdulaziz Alodan (al0dan) explains how he used 8 AI tools to build a complete Tuwaiq hackathon project from idea generation to testing.",
+     "url": "https://al0dan.com/writeup-1.html"
+   }
+   </script>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   <!-- Preloader -->
+   <div id="preloader">
+      <div class="spinner"></div>
+   </div>
+
+   <!-- Navbar -->
+   <nav id="navbar">
+      <div class="container nav-container">
+         <a href="index.html" class="logo">
+            <img src="imgs/my-logo-al0dan.png" alt="al0dan logo" class="logo-img">
+         </a>
+         <ul class="nav-links">
+            <li><a href="index.html#hero" data-i18n="nav_home">الرئيسية</a></li>
+            <li><a href="index.html#writeups" class="active" data-i18n="nav_writeups">التقارير</a></li>
+            <li><a href="index.html#contact" data-i18n="nav_contact">تواصل معي</a></li>
+         </ul>
+         <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-selected" id="langSelected" aria-haspopup="listbox" aria-expanded="false">
+               <img src="imgs/flag-saudi-arabia_1f1f8-1f1e6.png" alt="" class="lang-flag" id="selectedFlag">
+               <span id="selectedLangText">العربية</span>
+               <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="lang-dropdown" role="listbox" id="langDropdown">
+               <li class="lang-option" data-lang="ar" role="option">
+                  <img src="imgs/flag-saudi-arabia_1f1f8-1f1e6.png" alt="" class="lang-flag">
+                  <span>العربية</span>
+               </li>
+               <li class="lang-option" data-lang="en" role="option">
+                  <img src="imgs/flag-united-kingdom_1f1ec-1f1e7.png" alt="" class="lang-flag">
+                  <span>English</span>
+               </li>
+               <li class="lang-option" data-lang="zh" role="option">
+                  <img src="imgs/flag-china_1f1e8-1f1f3.png" alt="" class="lang-flag">
+                  <span>中文</span>
+               </li>
+            </ul>
+         </div>
+         <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+         </div>
+      </div>
+   </nav>
+
+   <!-- Article Hero -->
+   <div class="article-hero">
+      <div class="article-hero-img-wrap">
+         <img src="imgs/blog1.png" alt="Article Cover" class="article-cover-img">
+         <div class="article-hero-overlay"></div>
+      </div>
+      <div class="container article-hero-inner">
+         <a href="index.html#writeups" class="back-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+            <span data-i18n="nav_writeups">التقارير</span>
+         </a>
+         <div class="article-hero-titles">
+            <span class="article-category-badge">تقرير تقني</span>
+            <h1 class="article-title-en" data-article-lang="en">How I Built a Tuwaiq Hackathon Project<br>Using 8 AI Tools</h1>
+            <h2 class="article-title-ar" data-article-lang="ar">كيف بنيت مشروع هاكاثون طويق باستخدام 8 أدوات ذكاء اصطناعي</h2>
+         </div>
+         <div class="article-meta-bar">
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+               <span data-article-lang="ar">مارس ٢٠٢٦</span>
+               <span data-article-lang="en">March 2026</span>
+            </span>
+            <span class="meta-divider">·</span>
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+               <span data-article-lang="ar">5 دقائق قراءة</span>
+               <span data-article-lang="en">5 min read</span>
+            </span>
+            <span class="meta-divider">·</span>
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+               8 AI Tools
+            </span>
+         </div>
+      </div>
+   </div>
+
+   <!-- Article Body -->
+   <main class="article-main">
+      <div class="article-container">
+
+         <!-- ── Author ── -->
+         <div class="article-author reveal">
+            <img src="imgs/my-logo-al0dan.png" alt="Abdulaziz Alodan logo" class="author-avatar">
+            <div class="author-info">
+               <span class="author-name">
+                  <a href="index.html" rel="author">Abdulaziz Alodan · عبدالعزيز العودان</a>
+               </span>
+               <span class="author-role">Cybersecurity Researcher &amp; Full-Stack Developer · Saudi Arabia</span>
+            </div>
+         </div>
+
+         <!-- ── Intro ── -->
+         <div class="bilingual-intro reveal">
+            <div class="intro-en" data-article-lang="en">
+               <p>In Tuwaiq Hackathon, I wanted to try something different.<br>
+               Instead of relying only on myself in every step, I used a set of AI tools to help me through the full product-building process.</p>
+               <p>The experiment was simple:<br>
+               <strong>Can you build a full hackathon project using AI?</strong></p>
+               <p>From idea → research → coding → design → testing.</p>
+               <p>In this write-up, I explain the tools I used and how each one helped me during the process.</p>
+            </div>
+            <div class="intro-lang-divider article-lang-sep"></div>
+            <div class="intro-ar" data-article-lang="ar">
+               <p>في هاكاثون طويق، حبيت أجرب شيء مختلف.<br>
+               بدل ما أعتمد على نفسي في كل خطوة، استخدمت مجموعة من أدوات الذكاء الاصطناعي تساعدني خلال كامل رحلة بناء المشروع.</p>
+               <p>كانت الفكرة بسيطة:<br>
+               <strong>هل فعلًا تقدر تبني مشروع هاكاثون كامل باستخدام AI؟</strong></p>
+               <p>من الفكرة → البحث → البرمجة → التصميم → الاختبار.</p>
+               <p>في هذا الـ write-up أشرح الأدوات اللي استخدمتها وكيف كل أداة ساعدتني خلال الرحلة.</p>
+            </div>
+         </div>
+
+         <!-- ── Phase 1 ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">01</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Phase 1: Idea Generation and Research</p>
+                  <p class="phase-title-ar" data-article-lang="ar">المرحلة الأولى: توليد الفكرة والبحث</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>The first step in any hackathon is the idea.</p>
+                  <p>Instead of brainstorming alone, I used AI to do deep research around the hackathon challenge and possible directions.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">ChatGPT Research + Agent</span>
+                     <span class="tool-pill">Perplexity Research</span>
+                  </div>
+                  <p>I gave the tools the hackathon link and asked them to analyze the challenge and suggest project ideas that were:</p>
+                  <ul class="article-list">
+                     <li>innovative</li>
+                     <li>feasible in a hackathon timeframe</li>
+                     <li>technically impressive</li>
+                  </ul>
+                  <p>This helped me quickly generate multiple strong directions and choose the one worth building.</p>
+                  <div class="prompt-block">
+                     <div class="prompt-header">
+                        <span class="prompt-label">Prompt Used</span>
+                     </div>
+                     <pre class="prompt-code">You are an expert startup strategist and hackathon judge.
+
+Analyze the hackathon website and its challenges.
+Suggest project ideas that are:
+- innovative
+- feasible in a hackathon timeframe
+- technically impressive
+
+Explain why each idea could win.</pre>
+                  </div>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>أول خطوة في أي هاكاثون هي الفكرة.</p>
+                  <p>بدل ما أسوي brainstorming لحالي، استخدمت AI عشان يسوي بحث عميق حول تحدي الهاكاثون والاتجاهات الممكنة.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">ChatGPT Research + Agent</span>
+                     <span class="tool-pill">Perplexity Research</span>
+                  </div>
+                  <p>أعطيتهم رابط الهاكاثون وطلبت منهم يحللون التحدي ويقترحون أفكار مشاريع تكون:</p>
+                  <ul class="article-list">
+                     <li>مبتكرة</li>
+                     <li>قابلة للتنفيذ خلال مدة الهاكاثون</li>
+                     <li>قوية من ناحية تقنية</li>
+                  </ul>
+                  <p>هذا ساعدني أطلع بسرعة بعدة أفكار قوية وأختار الفكرة اللي تستحق البناء.</p>
+                  <div class="prompt-block">
+                     <div class="prompt-header">
+                        <span class="prompt-label">البرومبت المستخدم</span>
+                     </div>
+                     <pre class="prompt-code" dir="ltr">You are an expert startup strategist and hackathon judge.
+
+Analyze the hackathon website and its challenges.
+Suggest project ideas that are:
+- innovative
+- feasible in a hackathon timeframe
+- technically impressive
+
+Explain why each idea could win.</pre>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Phase 2 ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">02</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Phase 2: Building the Application</p>
+                  <p class="phase-title-ar" data-article-lang="ar">المرحلة الثانية: بناء التطبيق</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>After choosing the idea, I moved into the development phase.</p>
+                  <p>I split the work across multiple AI tools so each one focused on a different part of the project.</p>
+                  <p><strong>Backend:</strong></p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Claude Sonnet 4.6</span>
+                     <span class="tool-pill">Claude Code</span>
+                  </div>
+                  <p>Claude was especially useful for:</p>
+                  <ul class="article-list">
+                     <li>writing backend code</li>
+                     <li>structuring the project</li>
+                     <li>suggesting a good architecture</li>
+                  </ul>
+                  <p><strong>Frontend:</strong></p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Gemini 3.1 Pro</span>
+                     <span class="tool-pill">Antigravity</span>
+                  </div>
+                  <p>These tools helped with:</p>
+                  <ul class="article-list">
+                     <li>building the interface</li>
+                     <li>generating frontend code</li>
+                     <li>improving the user experience</li>
+                  </ul>
+                  <p><strong>Coordination:</strong></p>
+                  <p>During development, I also used ChatGPT to refine prompts and organize the workflow between the different tools. It acted almost like a coordination layer between them.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>بعد ما اخترت الفكرة، دخلت مرحلة التطوير.</p>
+                  <p>قسمت الشغل بين أكثر من أداة AI بحيث كل أداة تركز على جزء مختلف من المشروع.</p>
+                  <p><strong>الباك إند:</strong></p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Claude Sonnet 4.6</span>
+                     <span class="tool-pill">Claude Code</span>
+                  </div>
+                  <p>وكان Claude ممتاز خصوصًا في:</p>
+                  <ul class="article-list">
+                     <li>كتابة كود الباك إند</li>
+                     <li>تنظيم هيكلة المشروع</li>
+                     <li>اقتراح architecture مناسبة</li>
+                  </ul>
+                  <p><strong>الفرونت إند:</strong></p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Gemini 3.1 Pro</span>
+                     <span class="tool-pill">Antigravity</span>
+                  </div>
+                  <p>وهذه الأدوات ساعدتني في:</p>
+                  <ul class="article-list">
+                     <li>بناء الواجهة</li>
+                     <li>توليد كود الفرونت إند</li>
+                     <li>تحسين تجربة المستخدم</li>
+                  </ul>
+                  <p><strong>التنسيق بين الأدوات:</strong></p>
+                  <p>أثناء التطوير، استخدمت ChatGPT أيضًا لصياغة البرومبتات وتنظيم workflow بين الأدوات المختلفة. وكان تقريبًا مثل طبقة تنسيق بين كل الأدوات.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Phase 3 ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">03</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Phase 3: Logo Design</p>
+                  <p class="phase-title-ar" data-article-lang="ar">المرحلة الثالثة: تصميم الشعار</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>I did not design the logo manually.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Nano Banana (Gemini)</span>
+                  </div>
+                  <p>Within minutes, I had a logo that matched the project well.</p>
+                  <p>This saved a lot of time compared to doing everything from scratch in traditional design tools.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>ما صممت الشعار يدويًا.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Nano Banana (Gemini)</span>
+                  </div>
+                  <p>وخلال دقائق صار عندي شعار مناسب للمشروع.</p>
+                  <p>هذا وفر عليّ وقت كبير بدل ما أبدأ من الصفر في أدوات التصميم التقليدية.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Phase 4 ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">04</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Phase 4: Testing the Application</p>
+                  <p class="phase-title-ar" data-article-lang="ar">المرحلة الرابعة: اختبار التطبيق</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>Once the build was complete, I moved to testing.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Codex CLI</span>
+                  </div>
+                  <p>I used it to inspect the codebase and look for issues, bugs, and weak points.</p>
+                  <p>The idea was to let AI perform a kind of pentest-style review of the application by:</p>
+                  <ul class="article-list">
+                     <li>analyzing code issues</li>
+                     <li>spotting security concerns</li>
+                     <li>identifying bugs that could affect the app</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>بعد ما خلص البناء، بدأت مرحلة الاختبار.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Codex CLI</span>
+                  </div>
+                  <p>واستخدمته عشان يفحص الكود ويبحث عن المشاكل والـ bugs ونقاط الضعف.</p>
+                  <p>الفكرة كانت إني أخلي AI يسوي مراجعة بأسلوب pentest للتطبيق من خلال:</p>
+                  <ul class="article-list">
+                     <li>تحليل مشاكل الكود</li>
+                     <li>اكتشاف الملاحظات الأمنية</li>
+                     <li>تحديد الأخطاء اللي ممكن تأثر على التطبيق</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Phase 5 ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">05</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Phase 5: QA and Full Flow Testing</p>
+                  <p class="phase-title-ar" data-article-lang="ar">المرحلة الخامسة: ضمان الجودة واختبار تدفق التطبيق كامل</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>After code-level testing, I wanted to verify that the app actually worked well from the user side.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Perplexity Comet</span>
+                  </div>
+                  <p>What made it useful is that it behaves like a browser.</p>
+                  <p>It can:</p>
+                  <ul class="article-list">
+                     <li>click buttons</li>
+                     <li>move across pages</li>
+                     <li>verify that the flow works correctly</li>
+                  </ul>
+                  <p>It felt very close to having an AI QA tester.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>بعد اختبار الكود، كنت أبغى أتأكد أن التطبيق يشتغل فعليًا بشكل ممتاز من جهة المستخدم.</p>
+                  <div class="tools-inline">
+                     <span class="tool-pill">Perplexity Comet</span>
+                  </div>
+                  <p>الشيء اللي ميّزه أنه يشتغل مثل المتصفح.</p>
+                  <p>ويقدر:</p>
+                  <ul class="article-list">
+                     <li>يضغط الأزرار</li>
+                     <li>يتنقل بين الصفحات</li>
+                     <li>يتأكد أن تدفق الاستخدام شغال بشكل صحيح</li>
+                  </ul>
+                  <p>وكان قريب جدًا من فكرة وجود AI QA Tester.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Tools Used ── -->
+         <div class="article-tools-section reveal">
+            <div class="tools-bilingual-heading">
+               <h2 class="tools-title-en" data-article-lang="en">Tools Used</h2>
+               <p class="tools-title-ar" data-article-lang="ar">الأدوات المستخدمة</p>
+            </div>
+            <div class="tools-badges-grid">
+               <span class="tool-badge-card"><span class="tool-num">01</span><span class="tool-name">ChatGPT Research + Agent</span></span>
+               <span class="tool-badge-card"><span class="tool-num">02</span><span class="tool-name">Perplexity Research</span></span>
+               <span class="tool-badge-card"><span class="tool-num">03</span><span class="tool-name">Claude Sonnet 4.6</span></span>
+               <span class="tool-badge-card"><span class="tool-num">04</span><span class="tool-name">Claude Code</span></span>
+               <span class="tool-badge-card"><span class="tool-num">05</span><span class="tool-name">Gemini 3.1 Pro</span></span>
+               <span class="tool-badge-card"><span class="tool-num">06</span><span class="tool-name">Antigravity</span></span>
+               <span class="tool-badge-card"><span class="tool-num">07</span><span class="tool-name">Nano Banana (Gemini)</span></span>
+               <span class="tool-badge-card"><span class="tool-num">08</span><span class="tool-name">Codex CLI</span></span>
+               <span class="tool-badge-card"><span class="tool-num">09</span><span class="tool-name">Perplexity Comet</span></span>
+            </div>
+         </div>
+
+         <!-- ── Conclusion ── -->
+         <div class="conclusion-card reveal">
+            <div class="conclusion-icon">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+               </svg>
+            </div>
+            <div class="conclusion-body">
+               <div class="conclusion-en" data-article-lang="en">
+                  <h3>Conclusion</h3>
+                  <p>The experiment was honestly impressive.</p>
+                  <p>Using AI tools, it became possible to build a full hackathon project with assistance across every major stage:</p>
+                  <ul class="article-list">
+                     <li>idea</li>
+                     <li>research</li>
+                     <li>coding</li>
+                     <li>design</li>
+                     <li>testing</li>
+                  </ul>
+                  <p>At that point, it starts to feel like you have a full AI team working with you.</p>
+               </div>
+               <div class="conclusion-divider article-lang-sep"></div>
+               <div class="conclusion-ar" data-article-lang="ar">
+                  <h3>الخلاصة</h3>
+                  <p>التجربة كانت صراحة مبهرة.</p>
+                  <p>باستخدام أدوات الذكاء الاصطناعي صار ممكن تبني مشروع هاكاثون كامل بمساعدة عبر كل المراحل الأساسية:</p>
+                  <ul class="article-list">
+                     <li>الفكرة</li>
+                     <li>البحث</li>
+                     <li>البرمجة</li>
+                     <li>التصميم</li>
+                     <li>الاختبار</li>
+                  </ul>
+                  <p>وفي هذه المرحلة يبدأ الموضوع فعلًا وكأن عندك فريق AI كامل يشتغل معك.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Bottom Navigation ── -->
+         <div class="article-bottom-nav reveal">
+            <a href="index.html#writeups" class="back-btn-bottom">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+               <span data-article-lang="ar">العودة للتقارير</span>
+               <span data-article-lang="en">Back to Write-ups</span>
+            </a>
+         </div>
+
+      </div>
+   </main>
+
+   <!-- Footer -->
+   <footer>
+      <div class="container footer-container">
+         <div class="footer-logo">
+            <img src="imgs/my-logo-al0dan.png" alt="al0dan logo" class="footer-logo-img">
+         </div>
+         <p>&copy; <span id="year"></span> <span data-i18n="footer_copy">عبدالعزيز العودان. جميع الحقوق محفوظة.</span></p>
+         <div class="footer-links">
+            <a href="index.html#hero" data-i18n="nav_home">الرئيسية</a>
+            <a href="index.html#writeups" data-i18n="nav_writeups">التقارير</a>
+            <a href="index.html#contact" data-i18n="nav_contact">تواصل معي</a>
+         </div>
+      </div>
+   </footer>
+
+   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <script src="script.js"></script>
+   <script>
+      // Article language switching
+      // Arabic → show AR content only
+      // English or Chinese → show EN content only
+      function applyArticleLang(lang) {
+         const isAr = lang === 'ar';
+         document.querySelectorAll('[data-article-lang="ar"]').forEach(el => {
+            el.style.display = isAr ? '' : 'none';
+         });
+         document.querySelectorAll('[data-article-lang="en"]').forEach(el => {
+            el.style.display = isAr ? 'none' : '';
+         });
+         // Separators only needed when both are visible (neither case here)
+         document.querySelectorAll('.article-lang-sep').forEach(el => {
+            el.style.display = 'none';
+         });
+         // In Arabic-only mode the rtl-block is the sole content block → match card bg
+         document.querySelectorAll('.rtl-block').forEach(el => {
+            el.style.background = isAr ? 'var(--color-bg-main)' : '';
+         });
+      }
+
+      // Watch for script.js changing the <html lang="..."> attribute
+      new MutationObserver(() => {
+         applyArticleLang(document.documentElement.getAttribute('lang') || 'ar');
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+      // Apply on first load using saved preference
+      document.addEventListener('DOMContentLoaded', () => {
+         const saved = localStorage.getItem('siteLang') || 'ar';
+         applyArticleLang(saved);
+      });
+   </script>
+</body>
+
+</html>

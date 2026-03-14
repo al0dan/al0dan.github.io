@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Primary SEO -->
+   <title>Using AI to Pentest My Own Code | Abdulaziz Alodan (al0dan)</title>
+   <meta name="description" content="Abdulaziz Alodan (al0dan) used Codex CLI to run a white-box AI-powered pentest on his own application — and discovered vulnerabilities traditional scanners missed.">
+   <meta name="author" content="Abdulaziz Alodan">
+   <link rel="canonical" href="https://al0dan.com/writeup-2.html">
+   <meta name="robots" content="index, follow">
+
+   <!-- Open Graph -->
+   <meta property="og:type" content="article">
+   <meta property="og:title" content="Using AI to Pentest My Own Code | Abdulaziz Alodan">
+   <meta property="og:description" content="Abdulaziz Alodan used AI to run a white-box pentest on his own application code — and found vulnerabilities traditional scanners missed.">
+   <meta property="og:image" content="imgs/blog2.png">
+   <meta property="og:locale" content="ar_SA">
+   <meta property="og:locale:alternate" content="en_US">
+   <meta property="article:author" content="Abdulaziz Alodan">
+   <meta property="article:published_time" content="2026-03-14">
+
+   <!-- Twitter / X Card -->
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:site" content="@al0dan">
+   <meta name="twitter:creator" content="@al0dan">
+   <meta name="twitter:title" content="Using AI to Pentest My Own Code">
+   <meta name="twitter:description" content="Abdulaziz Alodan used AI to run a white-box pentest on his own code. Here is how.">
+   <meta name="twitter:image" content="imgs/blog2.png">
+
+   <!-- Article Structured Data -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "BlogPosting",
+     "headline": "Using AI to Pentest My Own Code",
+     "alternativeHeadline": "كيف خليت الذكاء الاصطناعي يسوي اختبار اختراق للكود حقي",
+     "image": "https://al0dan.com/imgs/blog2.png",
+     "datePublished": "2026-03-14",
+     "inLanguage": ["ar", "en"],
+     "author": {
+       "@type": "Person",
+       "name": "Abdulaziz Alodan",
+       "alternateName": ["عبدالعزيز العودان", "al0dan"],
+       "url": "https://al0dan.com"
+     },
+     "publisher": {
+       "@type": "Person",
+       "name": "Abdulaziz Alodan",
+       "url": "https://al0dan.com"
+     },
+     "description": "Abdulaziz Alodan (al0dan) explains how he used Codex CLI to perform a white-box AI-powered pentest on his application, following OWASP Top 10 methodology.",
+     "url": "https://al0dan.com/writeup-2.html"
+   }
+   </script>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   <!-- Preloader -->
+   <div id="preloader">
+      <div class="spinner"></div>
+   </div>
+
+   <!-- Navbar -->
+   <nav id="navbar">
+      <div class="container nav-container">
+         <a href="index.html" class="logo">
+            <img src="imgs/my-logo-al0dan.png" alt="al0dan logo" class="logo-img">
+         </a>
+         <ul class="nav-links">
+            <li><a href="index.html#hero" data-i18n="nav_home">الرئيسية</a></li>
+            <li><a href="index.html#writeups" class="active" data-i18n="nav_writeups">التقارير</a></li>
+            <li><a href="index.html#contact" data-i18n="nav_contact">تواصل معي</a></li>
+         </ul>
+         <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-selected" id="langSelected" aria-haspopup="listbox" aria-expanded="false">
+               <img src="imgs/flag-saudi-arabia_1f1f8-1f1e6.png" alt="" class="lang-flag" id="selectedFlag">
+               <span id="selectedLangText">العربية</span>
+               <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="lang-dropdown" role="listbox" id="langDropdown">
+               <li class="lang-option" data-lang="ar" role="option">
+                  <img src="imgs/flag-saudi-arabia_1f1f8-1f1e6.png" alt="" class="lang-flag">
+                  <span>العربية</span>
+               </li>
+               <li class="lang-option" data-lang="en" role="option">
+                  <img src="imgs/flag-united-kingdom_1f1ec-1f1e7.png" alt="" class="lang-flag">
+                  <span>English</span>
+               </li>
+               <li class="lang-option" data-lang="zh" role="option">
+                  <img src="imgs/flag-china_1f1e8-1f1f3.png" alt="" class="lang-flag">
+                  <span>中文</span>
+               </li>
+            </ul>
+         </div>
+         <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+         </div>
+      </div>
+   </nav>
+
+   <!-- Article Hero -->
+   <div class="article-hero">
+      <div class="article-hero-img-wrap">
+         <img src="imgs/blog2.png" alt="Article Cover" class="article-cover-img">
+         <div class="article-hero-overlay"></div>
+      </div>
+      <div class="container article-hero-inner">
+         <a href="index.html#writeups" class="back-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+            <span data-i18n="nav_writeups">التقارير</span>
+         </a>
+         <div class="article-hero-titles">
+            <span class="article-category-badge">تقرير تقني</span>
+            <h1 class="article-title-en" data-article-lang="en">Using AI to Pentest My Own Code</h1>
+            <h2 class="article-title-ar" data-article-lang="ar">كيف خليت الذكاء الاصطناعي يسوي اختبار اختراق للكود حقي</h2>
+         </div>
+         <div class="article-meta-bar">
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+               <span data-article-lang="ar">مارس ٢٠٢٦</span>
+               <span data-article-lang="en">March 2026</span>
+            </span>
+            <span class="meta-divider">·</span>
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+               <span data-article-lang="ar">6 دقائق قراءة</span>
+               <span data-article-lang="en">6 min read</span>
+            </span>
+            <span class="meta-divider">·</span>
+            <span class="meta-item">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+               <span data-article-lang="ar">أمن سيبراني</span>
+               <span data-article-lang="en">Security</span>
+            </span>
+         </div>
+      </div>
+   </div>
+
+   <!-- Article Body -->
+   <main class="article-main">
+      <div class="article-container">
+
+         <!-- ── Author ── -->
+         <div class="article-author reveal">
+            <img src="imgs/my-logo-al0dan.png" alt="Abdulaziz Alodan logo" class="author-avatar">
+            <div class="author-info">
+               <span class="author-name">
+                  <a href="index.html" rel="author">Abdulaziz Alodan · عبدالعزيز العودان</a>
+               </span>
+               <span class="author-role">Cybersecurity Researcher &amp; Full-Stack Developer · Saudi Arabia</span>
+            </div>
+         </div>
+
+         <!-- ── Intro ── -->
+         <div class="bilingual-intro reveal">
+            <div class="intro-en" data-article-lang="en">
+               <p>Recently I tried something a bit unusual.</p>
+               <p>Instead of using traditional vulnerability scanners to test my application, I let an AI analyze the entire codebase and attempt a security review.</p>
+               <p>The result?<br><strong>It discovered vulnerabilities I had not noticed before.</strong></p>
+               <p>In this write-up, I explain how I used AI to perform a pentest-style analysis directly from the project source code.</p>
+            </div>
+            <div class="intro-lang-divider article-lang-sep"></div>
+            <div class="intro-ar" data-article-lang="ar">
+               <p>قبل فترة جربت شيء مختلف شوي.</p>
+               <p>بدل ما أستخدم أدوات الفحص التقليدية عشان أختبر أمان التطبيق، خليت الذكاء الاصطناعي يقرأ المشروع كامل ويحاول يسوي تحليل أمني للكود.</p>
+               <p>والنتيجة؟<br><strong>طلع ثغرات ما كنت منتبه لها.</strong></p>
+               <p>في هذا الـ write-up أشرح كيف استخدمت AI عشان يسوي اختبار اختراق للتطبيق مباشرة من الكود.</p>
+            </div>
+         </div>
+
+         <!-- ── Section 1: The Idea ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">01</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">The Idea</p>
+                  <p class="phase-title-ar" data-article-lang="ar">الفكرة</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>The idea is simple.</p>
+                  <p>Instead of testing the application only from the outside, I let AI read the full project and analyze the source code itself.</p>
+                  <p>This makes the process closer to <strong>white-box security testing</strong>.</p>
+                  <p>Because the AI can understand the internal logic of the application, it can detect issues that many traditional scanners miss.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>الفكرة بسيطة.</p>
+                  <p>بدل ما أفحص التطبيق من الخارج فقط، خليت AI يقرأ المشروع كامل ويحلل الكود نفسه.</p>
+                  <p>وبكذا صار الموضوع أقرب إلى <strong>white-box security testing</strong>.</p>
+                  <p>ولأن AI يشوف منطق التطبيق الداخلي، صار يقدر يكتشف مشاكل كثير من أدوات الفحص التقليدية ما تلاحظها.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Section 2: The Tool ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">02</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">The Tool I Used</p>
+                  <p class="phase-title-ar" data-article-lang="ar">الأداة اللي استخدمتها</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>For my test, I used <strong>Codex CLI</strong>.</p>
+                  <p>Not because it is the only tool capable of doing this, but because it works well for analyzing codebases and understanding project structure.</p>
+                  <p>I also chose not to use Claude Code in this experiment because I wanted to save my tokens for other tasks.</p>
+                  <p>This same idea can also be done with:</p>
+                  <ul class="article-list">
+                     <li>Claude Code</li>
+                     <li>Gemini CLI</li>
+                     <li>Any AI tool that can read the full repository</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>بالنسبة لي استخدمت <strong>Codex CLI</strong>.</p>
+                  <p>مو لأنه الأداة الوحيدة اللي تقدر تسوي هذا الشيء، لكن لأنه مناسب لتحليل المشاريع ويفهم الكود وهيكلة المشروع بشكل كويس.</p>
+                  <p>وبرضو اخترت ما أستخدم Claude Code في هالتجربة لأني كنت أبغى أوفر الـ tokens لمهام ثانية.</p>
+                  <p>ونفس الفكرة تقدر تسويها باستخدام:</p>
+                  <ul class="article-list">
+                     <li>Claude Code</li>
+                     <li>Gemini CLI</li>
+                     <li>أي أداة AI تقدر تقرأ المشروع كامل</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Section 3: The Method ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">03</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">The Method</p>
+                  <p class="phase-title-ar" data-article-lang="ar">الطريقة</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>The workflow was simple.</p>
+                  <p>First, I opened the terminal inside the project folder.</p>
+                  <p>Then I launched Codex CLI and gave it a direct prompt that clearly defined the scope and restrictions.</p>
+                  <p>I wanted it to review the project like an authorized pentest, without modifying anything.</p>
+                  <div class="prompt-block">
+                     <div class="prompt-header">
+                        <span class="prompt-label">Prompt Used</span>
+                     </div>
+                     <pre class="prompt-code">I own this app and I authorize you to pentest it.
+DO NOT EDIT/CHANGE any code or config, no commits.
+
+Method: First test OWASP Top 10 systematically,
+then hunt deeper/advanced vulnerabilities.
+
+Read the full project carefully, inspect routes, auth,
+input handling, storage, APIs, business logic,
+secrets, files, and dangerous flows.
+
+You may run safe read-only tests and interact with
+the running app if needed, but do not make
+destructive changes.
+
+Give me:
+1. Confirmed vulnerabilities
+2. High-confidence suspicious findings
+3. Exploitation steps
+4. Severity
+5. Exact vulnerable files/functions
+6. Fix recommendations</pre>
+                  </div>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>الورك فلو كانت بسيطة.</p>
+                  <p>أول شيء فتحت التيرمنل داخل مجلد المشروع.</p>
+                  <p>بعدها شغلت Codex CLI وأعطيته برومبت واضح يحدد النطاق والقيود بشكل مباشر.</p>
+                  <p>كنت أبغاه يراجع المشروع كأنه pentest مصرح به، لكن بدون ما يعدل أي شيء.</p>
+                  <div class="prompt-block">
+                     <div class="prompt-header">
+                        <span class="prompt-label">البرومبت المستخدم</span>
+                     </div>
+                     <pre class="prompt-code" dir="ltr">I own this app and I authorize you to pentest it.
+DO NOT EDIT/CHANGE any code or config, no commits.
+
+Method: First test OWASP Top 10 systematically,
+then hunt deeper/advanced vulnerabilities.
+
+Read the full project carefully, inspect routes, auth,
+input handling, storage, APIs, business logic,
+secrets, files, and dangerous flows.
+
+You may run safe read-only tests and interact with
+the running app if needed, but do not make
+destructive changes.
+
+Give me:
+1. Confirmed vulnerabilities
+2. High-confidence suspicious findings
+3. Exploitation steps
+4. Severity
+5. Exact vulnerable files/functions
+6. Fix recommendations</pre>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Section 4: Why This Works Better ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">04</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Why This Works Better Than Normal Scanning</p>
+                  <p class="phase-title-ar" data-article-lang="ar">ليش هذه الطريقة أقوى من الفحص التقليدي</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>Because the AI can see the full codebase, the process becomes more than normal external scanning.</p>
+                  <p>It can combine two perspectives:</p>
+                  <ul class="article-list">
+                     <li>reading the code directly</li>
+                     <li>interacting with the application behavior</li>
+                  </ul>
+                  <p>That combination makes it much better at finding logic flaws, insecure flows, weak validation, and code-level mistakes.</p>
+                  <p>In other words, it does not only scan blindly.<br>
+                  It <strong>reads, understands, tests, and connects the dots</strong>.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>لأن AI يشوف المشروع كامل، صار الموضوع أكبر من مجرد فحص خارجي تقليدي.</p>
+                  <p>صار يجمع بين منظورين:</p>
+                  <ul class="article-list">
+                     <li>قراءة الكود مباشرة</li>
+                     <li>تجربة سلوك التطبيق فعليًا</li>
+                  </ul>
+                  <p>وهذا الدمج يخليه أفضل بكثير في اكتشاف مشاكل المنطق، والتدفقات غير الآمنة، وضعف التحقق، والأخطاء الموجودة في الكود نفسه.</p>
+                  <p>بمعنى آخر، هو ما يفحص بشكل أعمى فقط.<br>
+                  هو <strong>يقرأ، ويفهم، ويجرب، ويربط الأمور ببعض</strong>.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Section 5: What Happened ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">05</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">What Happened During Testing</p>
+                  <p class="phase-title-ar" data-article-lang="ar">وش صار أثناء الاختبار</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>During the test, the AI started probing endpoints, analyzing responses, and checking how the application behaved.</p>
+                  <p>What I liked most was that it did not depend only on scanning.<br>
+                  It combined source-code understanding with application interaction.</p>
+                  <p>That is exactly what made the findings more useful.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>أثناء الاختبار، بدأ AI يجرب على الـ endpoints، ويحلل الردود، ويشوف كيف التطبيق يتصرف.</p>
+                  <p>والشيء اللي عجبني أكثر أنه ما اعتمد على scanning فقط.<br>
+                  جمع بين فهم الكود نفسه وبين التفاعل مع التطبيق.</p>
+                  <p>وهذا بالضبط اللي خلّى النتائج أكثر فائدة.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Section 6: Takeaway ── -->
+         <div class="phase-card reveal">
+            <div class="phase-header">
+               <span class="phase-num">06</span>
+               <div class="phase-titles-wrap">
+                  <p class="phase-title-en" data-article-lang="en">Takeaway</p>
+                  <p class="phase-title-ar" data-article-lang="ar">الخلاصة العملية</p>
+               </div>
+            </div>
+            <div class="ltr-block lang-block" data-article-lang="en">
+               <span class="lang-tag">EN</span>
+               <div class="lang-content">
+                  <p>If you want a stronger security review of your own application, this approach is worth trying.</p>
+                  <p>Running an AI agent from inside the project gives you a powerful way to review:</p>
+                  <ul class="article-list">
+                     <li>OWASP Top 10 issues</li>
+                     <li>business logic flaws</li>
+                     <li>weak validation</li>
+                     <li>insecure implementation details</li>
+                     <li>suspicious attack paths</li>
+                  </ul>
+                  <p>Directly from the terminal.</p>
+               </div>
+            </div>
+            <div class="lang-separator article-lang-sep"></div>
+            <div class="rtl-block lang-block" data-article-lang="ar">
+               <span class="lang-tag">AR</span>
+               <div class="lang-content">
+                  <p>إذا كنت تبغى مراجعة أمنية أقوى لتطبيقك، فهذي الطريقة تستحق التجربة.</p>
+                  <p>تشغيل AI agent من داخل المشروع يعطيك طريقة قوية لمراجعة:</p>
+                  <ul class="article-list">
+                     <li>مشاكل OWASP Top 10</li>
+                     <li>ثغرات منطق العمل</li>
+                     <li>ضعف التحقق</li>
+                     <li>التفاصيل البرمجية غير الآمنة</li>
+                     <li>المسارات الهجومية المحتملة</li>
+                  </ul>
+                  <p>وكل هذا مباشرة من التيرمنل.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Tools Used ── -->
+         <div class="article-tools-section reveal">
+            <div class="tools-bilingual-heading">
+               <h2 class="tools-title-en" data-article-lang="en">Tools Used</h2>
+               <p class="tools-title-ar" data-article-lang="ar">الأدوات المستخدمة</p>
+            </div>
+            <div class="tools-badges-grid">
+               <span class="tool-badge-card"><span class="tool-num">01</span><span class="tool-name">Codex CLI</span></span>
+               <span class="tool-badge-card"><span class="tool-num">02</span><span class="tool-name">Claude Code</span></span>
+               <span class="tool-badge-card"><span class="tool-num">03</span><span class="tool-name">Gemini CLI</span></span>
+               <span class="tool-badge-card"><span class="tool-num">04</span><span class="tool-name">OWASP Top 10 Methodology</span></span>
+            </div>
+         </div>
+
+         <!-- ── Conclusion ── -->
+         <div class="conclusion-card reveal">
+            <div class="conclusion-icon">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="30" height="30">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+               </svg>
+            </div>
+            <div class="conclusion-body">
+               <div class="conclusion-en" data-article-lang="en">
+                  <h3>Conclusion</h3>
+                  <p>This experiment showed me that AI can be more than just a coding assistant.</p>
+                  <p>When used correctly, it can act like a practical security reviewer that reads code, tests behavior, and helps uncover vulnerabilities that might otherwise be missed.</p>
+               </div>
+               <div class="conclusion-divider article-lang-sep"></div>
+               <div class="conclusion-ar" data-article-lang="ar">
+                  <h3>الخاتمة</h3>
+                  <p>هالتجربة بينت لي أن AI يقدر يكون أكثر من مجرد مساعد برمجي.</p>
+                  <p>إذا استخدمته بشكل صحيح، يقدر يشتغل كمراجع أمني عملي يقرأ الكود، ويختبر السلوك، ويساعدك تطلع ثغرات ممكن ما تنتبه لها بالطريقة المعتادة.</p>
+               </div>
+            </div>
+         </div>
+
+         <!-- ── Bottom Navigation ── -->
+         <div class="article-bottom-nav reveal">
+            <a href="index.html#writeups" class="back-btn-bottom">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
+               <span data-article-lang="ar">العودة للتقارير</span>
+               <span data-article-lang="en">Back to Write-ups</span>
+            </a>
+         </div>
+
+      </div>
+   </main>
+
+   <!-- Footer -->
+   <footer>
+      <div class="container footer-container">
+         <div class="footer-logo">
+            <img src="imgs/my-logo-al0dan.png" alt="al0dan logo" class="footer-logo-img">
+         </div>
+         <p>&copy; <span id="year"></span> <span data-i18n="footer_copy">عبدالعزيز العودان. جميع الحقوق محفوظة.</span></p>
+         <div class="footer-links">
+            <a href="index.html#hero" data-i18n="nav_home">الرئيسية</a>
+            <a href="index.html#writeups" data-i18n="nav_writeups">التقارير</a>
+            <a href="index.html#contact" data-i18n="nav_contact">تواصل معي</a>
+         </div>
+      </div>
+   </footer>
+
+   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <script src="script.js"></script>
+   <script>
+      function applyArticleLang(lang) {
+         const isAr = lang === 'ar';
+         document.querySelectorAll('[data-article-lang="ar"]').forEach(el => {
+            el.style.display = isAr ? '' : 'none';
+         });
+         document.querySelectorAll('[data-article-lang="en"]').forEach(el => {
+            el.style.display = isAr ? 'none' : '';
+         });
+         document.querySelectorAll('.article-lang-sep').forEach(el => {
+            el.style.display = 'none';
+         });
+         document.querySelectorAll('.rtl-block').forEach(el => {
+            el.style.background = isAr ? 'var(--color-bg-main)' : '';
+         });
+      }
+
+      new MutationObserver(() => {
+         applyArticleLang(document.documentElement.getAttribute('lang') || 'ar');
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+      document.addEventListener('DOMContentLoaded', () => {
+         const saved = localStorage.getItem('siteLang') || 'ar';
+         applyArticleLang(saved);
+      });
+   </script>
+</body>
+
+</html>

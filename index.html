@@ -1,201 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="../../extensions/charts.css-0.9.0/dist/charts.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet"> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-    <link rel="shortcut icon" type="x-icon" href="dsa.png">
-    <label for="driver">Show Driving Element?</label>
-    <input type="checkbox" id="driver" />
-    <script src="jquery-2.1.4.js"></script>
-    <title>al0dan🧑‍💻</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <!-- Primary SEO -->
+   <title>Abdulaziz Alodan | عبدالعزيز العودان | al0dan</title>
+   <meta name="description" content="الموقع الشخصي لعبدالعزيز العودان (Abdulaziz Alodan) — مطور Full-Stack، باحث أمن سيبراني، ومؤسس منصة PWN TH3 CITY. المملكة العربية السعودية.">
+   <meta name="keywords" content="Abdulaziz Alodan, عبدالعزيز العودان, al0dan, cybersecurity, هاكر, Saudi Arabia, Full-Stack Developer, AI, PWN TH3 CITY">
+   <meta name="author" content="Abdulaziz Alodan">
+   <link rel="canonical" href="https://al0dan.com/">
+   <meta name="robots" content="index, follow">
+
+   <!-- Open Graph -->
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="Abdulaziz Alodan | عبدالعزيز العودان | al0dan">
+   <meta property="og:description" content="الموقع الشخصي لعبدالعزيز العودان — مطور Full-Stack، باحث أمن سيبراني، ومؤسس PWN TH3 CITY.">
+   <meta property="og:image" content="imgs/my-logo-al0dan.png">
+   <meta property="og:locale" content="ar_SA">
+   <meta property="og:locale:alternate" content="en_US">
+
+   <!-- Twitter / X Card -->
+   <meta name="twitter:card" content="summary">
+   <meta name="twitter:site" content="@al0dan">
+   <meta name="twitter:creator" content="@al0dan">
+   <meta name="twitter:title" content="Abdulaziz Alodan | عبدالعزيز العودان | al0dan">
+   <meta name="twitter:description" content="الموقع الشخصي لعبدالعزيز العودان — مطور Full-Stack، باحث أمن سيبراني، ومؤسس PWN TH3 CITY.">
+   <meta name="twitter:image" content="imgs/my-logo-al0dan.png">
+
+   <!-- Person Structured Data -->
+   <script type="application/ld+json">
+   {
+     "@context": "https://schema.org",
+     "@type": "Person",
+     "name": "Abdulaziz Alodan",
+     "alternateName": ["عبدالعزيز العودان", "al0dan"],
+     "url": "https://al0dan.com",
+     "sameAs": [
+       "https://x.com/al0dan",
+       "https://github.com/al0dan",
+       "https://www.linkedin.com/in/al0dan/"
+     ],
+     "jobTitle": "Cybersecurity Researcher & Full-Stack Developer",
+     "description": "Cybersecurity researcher, Full-Stack AI developer, and founder of PWN TH3 CITY. Based in Saudi Arabia.",
+     "addressCountry": "SA",
+     "email": "ben.awdan@gmail.com"
+   }
+   </script>
+
+   <!-- Google Fonts: IBM Plex Sans Arabic -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+   <!-- Main Stylesheet -->
+   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  
-    <header>
-        <div class="logo">
-          <nav>
-            <ul>
-              <li>
-                <script src="https://tryhackme.com/badge/1508612"></script>
-              </li>
+   <!-- Preloader -->
+   <div id="preloader">
+      <div class="spinner"></div>
+   </div>
+
+   <!-- Navbar -->
+   <nav id="navbar">
+      <div class="container nav-container">
+         <a href="#" class="logo">
+            <img src="imgs/my-logo-al0dan.png" alt="al0dan logo" class="logo-img">
+         </a>
+         <ul class="nav-links">
+            <li><a href="#hero" class="active" data-i18n="nav_home">الرئيسية</a></li>
+            <li><a href="#writeups" data-i18n="nav_writeups">التقارير</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">تواصل معي</a></li>
+         </ul>
+         <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-selected" id="langSelected" aria-haspopup="listbox" aria-expanded="false">
+               <img src="imgs/flag-saudi-arabia_1f1f8-1f1e6.png" alt="" class="lang-flag" id="selectedFlag">
+               <span id="selectedLangText">العربية</span>
+               <svg class="lang-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <ul class="lang-dropdown" role="listbox" id="langDropdown">
+               <li class="lang-option" data-lang="ar" role="option">
+                  <img src="imgs/flag-saudi-arabia_1f1f8-1f1e6.png" alt="" class="lang-flag">
+                  <span>العربية</span>
+               </li>
+               <li class="lang-option" data-lang="en" role="option">
+                  <img src="imgs/flag-united-kingdom_1f1ec-1f1e7.png" alt="" class="lang-flag">
+                  <span>English</span>
+               </li>
+               <li class="lang-option" data-lang="zh" role="option">
+                  <img src="imgs/flag-china_1f1e8-1f1f3.png" alt="" class="lang-flag">
+                  <span>中文</span>
+               </li>
             </ul>
-          </nav>
-        </div>
-        <nav>
-          <ul>
-            <li>
-              <a href="https://twitter.com/al0dan?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @al0dan</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>            </li>
-            <li>
-              <a href="discord.png" target="_blank"; style="font-family: 'Chakra Petch', sans-serif";>My Discord</a>
-            </li>
-            <li>
-              <a href="THM_main.html" style="font-family: 'Chakra Petch', sans-serif";>TryHackMe Writeups</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <br><br><br><br><br><br><br><br><br><br>
-      <main>
-        <section>
-          <p>
-            <span contenteditable=true>Responsive Animated Text Reveals with CSS Scroll-Driven Animations.</span>
-          </p>
-        </section>
-      </main>
+         </div>
+         <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+         </div>
+      </div>
+   </nav>
 
-    <section class="one">
-
-        <img class="pic-me" src="profpic.gif" alt="" width="200px" height="200px">
-        <div class="some-txt">
-            
-            <h1 style="font-family: 'Chakra Petch', sans-serif";>Name: X.com / AzizHacker</h1>
-            <h1 style="font-family: 'Chakra Petch', sans-serif";>Age: 13</h1>
-            <h1 style="font-family: 'Chakra Petch', sans-serif";>What i know: Web, Windows, Networking, Hashing</h1>
-            <p style="font-family: 'Chakra Petch', sans-serif";>A middle schooler who has 3 years of experience</p>
-        </div>
-
-
-        
-    </section>
-
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
-    <!-- charts -->
-
-    <section class="two">
-
-        <h1 style="font-family: 'Chakra Petch', sans-serif";>My skills</h1>
-            <canvas id="myChart"></canvas>
-
-            <script>
-              var ctx = document.getElementById('myChart').getContext('2d');
-              var myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                  labels: ['Web', 'Windows', 'Networking', 'Hashing', 'Python', 'JS', 'HTML', 'CSS', 'CC++', 'SQL'],
-                  datasets: [{
-                    label: '# of Votes',
-                    data: [70, 50, 20, 40, 40, 40, 60, 30, 30, 10],
-                    backgroundColor: [
-                      'RGB(192, 192, 192)',
-                      'RGB(112, 108, 97)',
-                      'RGB(192, 192, 192)',
-                      'RGB(112, 108, 97)',
-                      'RGB(192, 192, 192)',
-                      'RGB(112, 108, 97)',
-                      'RGB(192, 192, 192)',
-                      'RGB(112, 108, 97)',
-                      'RGB(192, 192, 192)',
-                      'RGB(112, 108, 97)'
-                    ],
-                    borderWidth: 1
-                  }]
-                },
-                options: {
-                  cutoutPercentage: 50,
-                  animation: {
-                    animateScale: true
-                  },
-                  legend: {
-                    labels: {
-                      fontColor: 'white'
-                    }
-                  }
-                }
-              });
-            </script>
-
-            <!--
-            <tr>
-              <th scope="row"> Program... </th>
-              <td style="--size:0.7;"><span class="data"> 70 </span></td>
-            </tr>
-            -->
-
-          </tbody>
-        </table>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h1 style="font-family: 'Chakra Petch', sans-serif";>My Certificates</h1>
-        <br>
-        <br>
-        <img src="cs50.jpeg" heigth="4000" width="400" alt=""> <img src="Ejpt.png" heigth="370" width="410" alt=""> <img src="THM-.png" heigth="4000" width="400" alt=""><img src="THM-1.png" heigth="370" width="410" alt=""> <img src="THM-2.png" heigth="4000" width="400" alt=""> <img src="THM-3.png" heigth="4000" width="400" alt=""> <img src="THM-4.png" heigth="370" width="410" alt=""> <img src="THM-5.png" heigth="4000" width="400" alt="">
-        <!-- bottom-info -->
-        <br>
-        <br>
-        <br>
+   <!-- Hero Section -->
+   <header id="hero" class="section">
+      <div class="container hero-container">
+         <div class="hero-content reveal">
+            <p class="subtitle" data-i18n="hero_subtitle">مرحباً، أنا</p>
+            <h1 class="title" data-i18n="hero_title">عبدالعزيز العودان</h1>
+            <h2 class="role" data-i18n="hero_role">مبرمج Full-Stack AI ومختبر اختراق</h2>
+            <p class="description" data-i18n="hero_desc">
+               أجمع بين بناء المنتجات التقنية، <strong>الذكاء الاصطناعي العميق</strong>، والأمن السيبراني. أقوم حالياً ببناء وتطوير منصة <strong>PWN TH3
+                  CITY</strong>، ومهتم ببناء ذكاء اصطناعي متكامل يحل أعقد المشكلات ويصنع الفارق.
+            </p>
+         </div>
+         <div class="hero-visual reveal">
+            <div class="cyber-cube-container">
+               <div class="cyber-cube">
+                  <div class="face front">
+                     <span class="glitch-text" data-text="SECURE">SECURE</span>
+                  </div>
+                  <div class="face back">
+                     <span class="glitch-text" data-text="0xAL0DAN">0xAL0DAN</span>
+                  </div>
+                  <div class="face right">
+                     <span class="glitch-text" data-text="ROOT">ROOT</span>
+                  </div>
+                  <div class="face left">
+                     <span class="glitch-text" data-text="SYS">SYS</span>
+                  </div>
+                  <div class="face top"></div>
+                  <div class="face bottom"></div>
+               </div>
+               <div class="cube-shadow"></div>
+               <div class="floating-badge badge-1">AI_CORE</div>
+               <div class="floating-badge badge-2">PEN_TEST</div>
+            </div>
+         </div>
+      </div>
+   </header>
 
 
+   <!-- Write-ups Section -->
+   <section id="writeups" class="section">
+      <div class="container">
+         <div class="section-header reveal">
+            <h2 data-i18n="writeups_title">التقارير التقنية</h2>
+            <div class="line"></div>
+            <p class="section-sub" data-i18n="writeups_desc">تقارير تقنية تعجبني وكتابتها</p>
+         </div>
+         <div class="writeups-grid" id="writeups-grid"></div>
+      </div>
+   </section>
 
+   <!-- Contact Section -->
+   <section id="contact" class="section">
+      <div class="container contact-container">
+         <div class="section-header reveal">
+            <h2 data-i18n="contact_title">تواصل معي</h2>
+            <div class="line"></div>
+            <p class="contact-desc" data-i18n="contact_desc">أنا دائمًا منفتح لمناقشة المشاريع الجديدة، الأفكار الابتكارية، أو حتى لتبادل الحديث
+               حول التقنية والذكاء الاصطناعي.</p>
+         </div>
 
+         <div class="contact-wrapper">
+            <div class="contact-info reveal">
+               <div class="info-item">
+                  <div class="info-icon">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                     </svg>
+                  </div>
+                  <div>
+                     <span class="info-label" data-i18n="contact_email">البريد الإلكتروني:</span>
+                     <a href="mailto:ben.awdan@gmail.com" class="info-value">ben.awdan@gmail.com</a>
+                  </div>
+               </div>
+               <div class="info-item">
+                  <div class="info-icon">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                     </svg>
+                  </div>
+                  <div>
+                     <span class="info-label" data-i18n="contact_location_label">الموقع الجغرافي:</span>
+                     <span class="info-value" data-i18n="contact_location">المملكة العربية السعودية</span>
+                  </div>
+               </div>
 
+               <div class="social-links">
+                  <a href="https://www.linkedin.com/in/al0dan/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                     <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                     </svg>
+                  </a>
+                  <a href="https://github.com/al0dan" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                     <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                           d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" />
+                     </svg>
+                  </a>
+                  <a href="https://x.com/al0dan" target="_blank" rel="noopener" class="social-link" aria-label="X">
+                     <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                     </svg>
+                  </a>
+               </div>
+            </div>
 
+         </div>
+      </div>
+   </section>
 
+   <!-- Footer -->
+   <footer>
+      <div class="container footer-container">
+         <div class="footer-logo">
+            <img src="imgs/my-logo-al0dan.png" alt="al0dan logo" class="footer-logo-img">
+         </div>
+         <p>&copy; <span id="year"></span> <span data-i18n="footer_copy">عبدالعزيز العودان. جميع الحقوق محفوظة.</span></p>
+         <div class="footer-links">
+            <a href="#hero" data-i18n="nav_home">الرئيسية</a>
+            <a href="#writeups" data-i18n="nav_writeups">التقارير</a>
+            <a href="#contact" data-i18n="nav_contact">تواصل معي</a>
+         </div>
+      </div>
+   </footer>
 
-
-
-
-
-    <!-- top button up -->
-
-    <button onclick="topFunction()" id="myBtn" title="Go to top"  style="font-family: 'Chakra Petch', sans-serif";>Top</button>
-    
-    <script>
-      //Get the button
-      var mybutton = document.getElementById("myBtn");
-      
-      // When the user scrolls down 20px from the top of the document, show the button
-      window.onscroll = function() {scrollFunction()};
-      
-      function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-          mybutton.style.display = "block";
-        } else {
-          mybutton.style.display = "none";
-        }
-      }
-      
-      // When the user clicks on the button, scroll to the top of the document
-      function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }
-      </script>
-    
-
-
-
-    
+   <!-- Twitter Widget -->
+   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <!-- Main Script -->
+   <script src="script.js"></script>
 </body>
+
 </html>
